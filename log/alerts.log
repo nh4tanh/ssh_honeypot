@@ -1,4 +1,21 @@
-127.0.0.1, username, password
-127.0.0.1, username, password
-127.0.0.1, username, password
-127.0.0.1, username, password
+192.168.134.130, john, P@ssw0rd
+[2025-04-25 10:59:11] [DANGER] [192.168.134.130] rm
+[2025-04-25 10:59:13] [DANGER] [192.168.134.130] rm /r
+192.168.134.139, john, password
+192.168.134.139, john, P@ssw0rd
+192.168.134.139, john, afjwqkfjwq
+192.168.134.139, john, fj1fi1jrf
+192.168.134.139, john, fiqwjiejf
+[2025-04-25 11:10:31.213388] [BRUTEFORCE DETECTED] 192.168.134.139 tried 5 logins in 1 minute
+192.168.134.139, john, wjeifjwqiefj
+[2025-04-25 11:10:31.221927] [BRUTEFORCE DETECTED] 192.168.134.139 tried 6 logins in 1 minute
+192.168.134.139, john, qwjeifjiwqjef
+[2025-04-25 11:10:31.234429] [BRUTEFORCE DETECTED] 192.168.134.139 tried 7 logins in 1 minute
+192.168.134.139, john, qwjeifjwqiefj
+[2025-04-25 11:10:31.235016] [BRUTEFORCE DETECTED] 192.168.134.139 tried 8 logins in 1 minute
+192.168.134.139, john, wqjefijwqeifj
+[2025-04-25 11:10:31.241462] [BRUTEFORCE DETECTED] 192.168.134.139 tried 9 logins in 1 minute
+192.168.134.139, john, 12312441
+[2025-04-25 11:10:31.245234] [BRUTEFORCE DETECTED] 192.168.134.139 tried 10 logins in 1 minute
+192.168.134.139, john, ifjiewjfi
+[2025-04-25 11:10:31.261327] [BRUTEFORCE DETECTED] 192.168.134.139 tried 11 logins in 1 minute

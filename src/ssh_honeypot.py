@@ -5,9 +5,11 @@ from http.client import responses
 from logging.handlers import RotatingFileHandler
 import socket
 import paramiko
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import time
+
+brute_force_attempts = {}  # [NEW] Track login timestamps per IP
 
 # Constants
 logging_format = logging.Formatter('%(message)s')
@@ -51,7 +53,8 @@ def log_command(ip, username, command):
         "command": command
     }
     with open('../log/cmd_logs.json', 'a') as f:
-        f.write(json.dumps(log_entry) + '\\n')
+        f.write(json.dumps(log_entry))
+        f.write("\n")
 
     if is_dangerous(command):
         alert_logger.warning(f"[{timestamp}] [DANGER] [{ip}] {command}")
@@ -210,7 +213,7 @@ def emulated_shell(channel, client_ip, username):
 
             elif cmd == 'history':
                 for i, h in enumerate(history[-10:], 1):
-                     sendln(f'{i}  {h.decode()}')
+                    sendln(f'{i}  {h.decode()}')
 
             elif cmd.startswith('wget ') or cmd.startswith('curl '):
                 sendln_delay('Connecting to malicious.server... 200 OK\nSaving file to disk... done.')
@@ -243,7 +246,7 @@ def emulated_shell(channel, client_ip, username):
 
 # SSH Server
 class Server(paramiko.ServerInterface):
-    def __init__(self, client_ip, input_username, input_passwd, creds_dict = None):
+    def __init__(self, client_ip, input_username=None, input_passwd=None, creds_dict=None):
         self.event = threading.Event()
         self.client_ip = client_ip
         self.input_username = input_username
@@ -261,7 +264,20 @@ class Server(paramiko.ServerInterface):
         auth_logger.info(
             f'Client {self.client_ip} attempted connection with username: {username}, password: {password}')
         alert_logger.info(f'{self.client_ip}, {username}, {password}')
-        if self.input_username and self.input_passwd:
+
+        now = datetime.now()
+        brute_force_attempts.setdefault(self.client_ip, []).append(now)
+
+        # Clean up attempts older than 60 seconds
+        brute_force_attempts[self.client_ip] = [
+            t for t in brute_force_attempts[self.client_ip]
+            if now - t < timedelta(seconds=60)
+        ]
+
+        if len(brute_force_attempts[self.client_ip]) >= 5:
+            alert_logger.warning(f"[{now}] [BRUTEFORCE DETECTED] {self.client_ip} tried {len(brute_force_attempts[self.client_ip])} logins in 1 minute")
+
+        if self.input_username is not None and self.input_passwd is not None:            
             return paramiko.AUTH_SUCCESSFUL if username == self.input_username and password == self.input_passwd else paramiko.AUTH_FAILED
         elif self.creds_dict and username in self.creds_dict:
             if self.creds_dict[username] == password:
@@ -284,14 +300,14 @@ class Server(paramiko.ServerInterface):
 
 # Handle client
 
-def client_handle(client, addr, username, password, creds_dict):
+def client_handle(client, addr, username=None, password=None, creds_dict=None):
     client_ip = addr[0]
     print(f'{client} has connected to server!!!')
 
     try:
         transport = paramiko.Transport(client)
         transport.local_version = SSH_BANNER
-        server = Server(client_ip=client_ip, input_username=username, input_passwd=password)
+        server = Server(client_ip=client_ip, input_username=username, input_passwd=password, creds_dict=creds_dict)
 
         transport.add_server_key(host_key)
         transport.start_server(server=server)
@@ -317,7 +333,7 @@ def client_handle(client, addr, username, password, creds_dict):
 
 # Run honeypot
 
-def honey_pot(address, port, username, password, creds_dict=None):
+def honey_pot(address, port, username=None, password=None, creds_dict=None):
     socks = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socks.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     socks.bind((address, port))
@@ -328,11 +344,11 @@ def honey_pot(address, port, username, password, creds_dict=None):
     while True:
         try:
             client, addr = socks.accept()
-            ssh_honeypot_thread = threading.Thread(target=client_handle, args=(client, addr, username, password))
+            ssh_honeypot_thread = threading.Thread(target=client_handle,
+                                                   args=(client, addr, username, password, creds_dict))
             ssh_honeypot_thread.start()
         except Exception as error:
             print("!!! Exception - Could not open new client connection !!!")
             print(error)
 
-
-honey_pot('127.0.0.1', 2223, 'username', 'password')
+# honey_pot('127.0.0.1', 2223, 'username', 'password')

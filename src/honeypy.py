@@ -7,7 +7,7 @@ from ssh_honeypot import *
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-a', '-address', type=str, required=True)
+    parser.add_argument('-a', '--address', type=str, required=True)
     parser.add_argument('-p', '--port', type=int, required=True)
     parser.add_argument('-u', '--username', type=str)
     parser.add_argument('-pw', '--password', type=str)
@@ -27,9 +27,9 @@ if __name__ == '__main__':
                     creds_dict[user] = pw
 
     try:
-        if args.ssh:
+        if args.ssh:          
             print('[-] Running SSH Honeypot...')
-            honey_pot(args.address, args.port, None, None, creds_dict =creds_dict)
+            honey_pot(args.address, args.port, args.username, args.password, creds_dict)
 
             if not args.username:
                 username = None
@@ -41,5 +41,5 @@ if __name__ == '__main__':
             pass
         else:
             print('[!] Choose  a honeypot type (SSH) or (HTTP).')
-    except:
-        print("\n Existing honeypot!!!")
+    except Exception as e: 
+        print(f"\n Existing honeypot!!! {e}")
