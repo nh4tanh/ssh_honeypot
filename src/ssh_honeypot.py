@@ -5,11 +5,9 @@ from http.client import responses
 from logging.handlers import RotatingFileHandler
 import socket
 import paramiko
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
 import time
-
-brute_force_attempts = {}  # [NEW] Track login timestamps per IP
 
 # Constants
 logging_format = logging.Formatter('%(message)s')
@@ -53,8 +51,7 @@ def log_command(ip, username, command):
         "command": command
     }
     with open('../log/cmd_logs.json', 'a') as f:
-        f.write(json.dumps(log_entry))
-        f.write("\n")
+        f.write(json.dumps(log_entry) + '\\n')
 
     if is_dangerous(command):
         alert_logger.warning(f"[{timestamp}] [DANGER] [{ip}] {command}")
@@ -77,7 +74,7 @@ def emulated_shell(channel, client_ip, username):
     fake_fs = {
         'custardA.config': 'CONFIG: allow_remote_root=1',
         'flag.txt': 'CTF{you_found_me}',
-        'notes.txt': 'todo: upload backdoor\ncheck crontab'
+        'notes.txt': 'todo: upload backdoor\r\ncheck crontab'
     }
 
     prompt = 'custardA$ '
@@ -144,7 +141,7 @@ def emulated_shell(channel, client_ip, username):
             elif cmd == 'whoami':
                 sendln(f'{username}')
             elif cmd == 'ls':
-                sendln('custardA.config flag.txt')
+                sendln(' '.join(fake_fs.keys()))
             elif cmd == 'cat custardA.config':
                 sendln('CONFIG: allow_remote_root=1')
             elif cmd == 'cat flag.txt':
@@ -243,7 +240,6 @@ def emulated_shell(channel, client_ip, username):
         send('\r\x1b[K' + prompt + command)
         send('\r' + prompt + command[:cursor_pos])
 
-
 # SSH Server
 class Server(paramiko.ServerInterface):
     def __init__(self, client_ip, input_username=None, input_passwd=None, creds_dict=None):
@@ -252,6 +248,7 @@ class Server(paramiko.ServerInterface):
         self.input_username = input_username
         self.input_passwd = input_passwd
         self.creds_dict = creds_dict
+        self.authenticated_username = None
 
     def check_channel_request(self, kind, chanid):
         if kind == 'session':
@@ -265,22 +262,15 @@ class Server(paramiko.ServerInterface):
             f'Client {self.client_ip} attempted connection with username: {username}, password: {password}')
         alert_logger.info(f'{self.client_ip}, {username}, {password}')
 
-        now = datetime.now()
-        brute_force_attempts.setdefault(self.client_ip, []).append(now)
-
-        # Clean up attempts older than 60 seconds
-        brute_force_attempts[self.client_ip] = [
-            t for t in brute_force_attempts[self.client_ip]
-            if now - t < timedelta(seconds=60)
-        ]
-
-        if len(brute_force_attempts[self.client_ip]) >= 5:
-            alert_logger.warning(f"[{now}] [BRUTEFORCE DETECTED] {self.client_ip} tried {len(brute_force_attempts[self.client_ip])} logins in 1 minute")
-
-        if self.input_username is not None and self.input_passwd is not None:            
-            return paramiko.AUTH_SUCCESSFUL if username == self.input_username and password == self.input_passwd else paramiko.AUTH_FAILED
+        if self.input_username is not None and self.input_passwd is not None:
+            if username == self.input_username and password == self.input_passwd:
+                self.authenticated_username = username
+                return paramiko.AUTH_SUCCESSFUL
+            else:
+                return paramiko.AUTH_FAILED
         elif self.creds_dict and username in self.creds_dict:
             if self.creds_dict[username] == password:
+                self.authenticated_username = username
                 return paramiko.AUTH_SUCCESSFUL
             else:
                 return paramiko.AUTH_FAILED
@@ -317,9 +307,10 @@ def client_handle(client, addr, username=None, password=None, creds_dict=None):
             print('No channel is open.')
             return
 
+        username_used = server.authenticated_username or "unknown"
         banner = 'Welcome to Ubuntu 22.04 LTS (Yomama)!\r\n\r\n'
         channel.send(banner.encode())
-        emulated_shell(channel, client_ip, username)
+        emulated_shell(channel, client_ip, username=username_used)
 
     except Exception as error:
         print(error)

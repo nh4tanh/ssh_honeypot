@@ -13,3 +13,50 @@ Client 192.168.134.139 attempted connection with username: john, password: qwjei
 Client 192.168.134.139 attempted connection with username: john, password: wqjefijwqeifj
 Client 192.168.134.139 attempted connection with username: john, password: 12312441
 Client 192.168.134.139 attempted connection with username: john, password: ifjiewjfi
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-25 22:52:52] [192.168.134.139] [USERNAME: None] [CMD] ls
+[2025-04-25 22:52:57] [192.168.134.139] [USERNAME: None] [CMD] ps
+[2025-04-25 22:53:07] [192.168.134.139] [USERNAME: None] [CMD] cat flag.txt
+[2025-04-25 22:53:11] [192.168.134.139] [USERNAME: None] [CMD] rm /
+Client 192.168.134.139 attempted connection with username: john, password: password
+Client 192.168.134.139 attempted connection with username: john, password: afjwqkfjwq
+Client 192.168.134.139 attempted connection with username: john, password: qwjeifjwqiefj
+Client 192.168.134.139 attempted connection with username: john, password: fiqwjiejf
+Client 192.168.134.139 attempted connection with username: john, password: wqjefijwqeifj
+Client 192.168.134.139 attempted connection with username: john, password: ifjiewjfi
+Client 192.168.134.139 attempted connection with username: john, password: fj1fi1jrf
+Client 192.168.134.139 attempted connection with username: john, password: wjeifjwqiefj
+Client 192.168.134.139 attempted connection with username: john, password: 12312441
+Client 192.168.134.139 attempted connection with username: john, password: qwjeifjiwqjef
+Client 192.168.134.139 attempted connection with username: john, password: P@ssw0rd
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-25 23:13:52] [192.168.134.139] [USERNAME: ] [CMD] ls
+[2025-04-25 23:13:55] [192.168.134.139] [USERNAME: ] [CMD] pwd
+[2025-04-25 23:13:57] [192.168.134.139] [USERNAME: ] [CMD] whoami
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-25 23:17:43] [192.168.134.139] [USERNAME: None] [CMD] ls
+[2025-04-25 23:17:46] [192.168.134.139] [USERNAME: None] [CMD] echo yoyokak
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-25 23:21:48] [192.168.134.139] [USERNAME: None] [CMD] echo jajaf
+[2025-04-25 23:21:50] [192.168.134.139] [USERNAME: None] [CMD] ls
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-25 23:25:33] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-25 23:25:35] [192.168.134.139] [USERNAME: root] [CMD] echo ajfjafkj
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-26 11:11:46] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:11:47] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:13:06] [192.168.134.139] [USERNAME: root] [CMD] cat notes.txt
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-26 11:15:41] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:15:42] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:15:42] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:15:43] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:15:47] [192.168.134.139] [USERNAME: root] [CMD] cat notes.txt
+Client 192.168.134.139 attempted connection with username: root, password: toor
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-26 11:18:47] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:19:26] [192.168.134.139] [USERNAME: root] [CMD] ls
+Client 192.168.134.139 attempted connection with username: root, password: toor
+[2025-04-26 11:19:38] [192.168.134.139] [USERNAME: root] [CMD] ls
+[2025-04-26 11:19:46] [192.168.134.139] [USERNAME: root] [CMD] rm notes.txt
+[2025-04-26 11:19:48] [192.168.134.139] [USERNAME: root] [CMD] ls
